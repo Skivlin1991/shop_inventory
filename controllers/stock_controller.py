@@ -1,27 +1,29 @@
+from models.manufacturer import Manufacturer
 from flask import Flask,render_template,request,redirect 
 from flask import Blueprint
 from models.stock import Stock 
 from templates import *
 import repositories.stock_repository as stock_repository
-impory repositories.manufacturer_repository as manufacturer_repository 
+import repositories.manufacturer_repository as manufacturer_repository
 
 stock_blueprint = Blueprint("stock",__name__)
 
 @stock_blueprint.route("/stock")
 def stock():
-    stock = stock_repository.select_all # NEW
-    return render_template("show.html", all_stock = stock)
+    stock = stock_repository.select_all() # NEW
+    print(stock)
+    return render_template("index.html", all_stock = stock)
 
 # NEW
 # GET'/stock/new'
 @stock_blueprint.route('/stock/new', methods =['GET'])
 def new_stock():
-    manufacturer = manufacturer_repository.select_all()
-    return render_template("new.html", all_manufacturers = maufacturer)
+    manufacturers = manufacturer_repository.select_all()
+    return render_template("new.html", all_manufacturers = manufacturers)
 
 # CREATE
 # POST '/stocks'
-@stock_blueprint.route('/stocks', methods = ['POST'])
+@stock_blueprint.route('/stock/new', methods = ['POST'])
 def create_stock():
     name = request.form['name']
     description = request.form['description']
@@ -29,7 +31,7 @@ def create_stock():
     cost = request.form['cost']
     price = request.form['price']
     manufacturer = manufacturer_repository.select(request.form['manufacturer_id'])
-    stock = stock(name, description, price, id)
+    stock = stock(name, description,cost , price, id)
     stock_repository.save(stock)
     return redirect('/stock')
 
@@ -70,7 +72,7 @@ def sell_stock(id):
     price = stock_item.price
     cost = stock_item.cost
     in_stock = False
-    manufacture = manufa_repository.select(stock_item.manufacturer.id)
+    manufacturer = manufacturer_repository.select(stock_item.manufacturer.id)
     stock = Stock(name,description,manufacturer, cost, price,in_stock,id)
     stock_repository.update(stock)
     return redirect('/stock')

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+
+<form action="/stock" method="post">
+
+    <div>
+        <label for="name">Name:</label>
+        <input type="text" id="name" description ="description"  placeholder="name" name ='name' required autofocus>
+    </div>
+
+    <div>
+        <label for="description ">description:</label>
+        <input type="text" id="description" name="description" placeholder="description"  required autofocus>
+    </div>
+
+    <div>
+        <label for="manufacturer">manufacturer:</label>
+        <input type="text" id="manufacturer" name="manufacturer" placeholder="manufacturer" required>
+    </div>
+   
+    <div>
+        <label for="cost">cost:</label>
+        <input type= INT id="cost" name="cost" placeholder="cost" required>
+    </div>
+    <div>
+        <label for="price">price:</label>
+        <input type= INT id="price" name="price" placeholder="price" required>
+    </div>
+
+
+    <div>
+        <label for="manufacturer">manufacturer:</label>
+        <select id="manufacturer" name="manufacturer_id">
+            {% for manufacturer in all_manufacturers %}
+            <option value="{{ manufacturer.id }}">{{ manufacturer.first_name}}</option>
+            {% endfor %}
+        </select>
+       
+    </div>
+
+    <button type="submit">Add stock</button>
+
+    </form>
+{% endblock %}

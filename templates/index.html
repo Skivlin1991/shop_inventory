@@ -1,51 +1,25 @@
 {% extends "base.html" %}
-{% block home %}
-<section id="home-image">
-<h1 id = "shop_heading">WELCOME to </h1>
-
-<h3 id = "shop">Half the shop weapons and instruments of death run by an tiny, aggressive women.
-     The other half a healing shop run by a large barbarin type man who's very gentle.
-    they are a couple...opposites attract?</h3>
-</section>
-
-<!-- <!DOCTYPE html>
-<html lang="en"> -->
-
-<!-- <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="shop_style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
-    <title>CSS</title> -->
-<!-- </head> -->
-
-<!-- <body>
-    <header>
-        <h1 id="logo"></h1>
-        <nav>
-            <ul>
-                <li>
-                </li>
-                <li>
-                </li>
-            </ul>
-        </nav>
-    </header>
-    <main>
-        <article>
-            <header>
-              
-            </header>
-            <main> -->
-               
-              
-                    
-            <!-- </main> -->
-            <footer>
-                <button class="SOLD-button">sold</button>
-            </footer>
-        <!-- </article>
-    </main> -->
-<!-- </body>
-</html> -->
+{% block content %}
+<h2>the finest of stocks</h2>
+{% for stock in all_stock %}
+{% if stock.in_stock %}
+<div class="in-stock">
+    <p>{{stock.name}}</p>
+    <p>{{stock.manufacturer.first_name}} {{stock.manufacturer.last_name}}</p>
+    <p>in stock {{stock.in_stock}}</p>
+    <p><a href="/stock/{{stock.id}}/edit">Edit</a></p>
+    <form action="/stock/{{stock.id}}/sell" method="POST">
+        <button class="SOLD-button">sold</button>
+    </form>
+    
+</div>
+{% else %}
+<div class="not-in-stock">
+    <p>{{stock.name}}</p>
+    <p>{{stock.manufacturer.first_name}} {{stock.manufacturer.last_name}}</p>
+    <p>in stock {{stock.in_stock}}</p>
+    <p><a href="/stock/{{stock.id}}/edit">Edit</a></p>
+</div>
+{% endif %}
+{% endfor %}
 {% endblock %}
