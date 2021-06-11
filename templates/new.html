@@ -14,11 +14,6 @@
     </div>
 
     <div>
-        <label for="manufacturer">manufacturer:</label>
-        <input type="text" id="manufacturer" name="manufacturer" placeholder="manufacturer" required>
-    </div>
-   
-    <div>
         <label for="cost">cost:</label>
         <input type= INT id="cost" name="cost" placeholder="cost" required>
     </div>
@@ -32,7 +27,7 @@
         <label for="manufacturer">manufacturer:</label>
         <select id="manufacturer" name="manufacturer_id">
             {% for manufacturer in all_manufacturers %}
-            <option value="{{ manufacturer.id }}">{{ manufacturer.first_name}}</option>
+            <option value="{{ manufacturer.id }}">{{ manufacturer.first_name}} {{manufacturer.last_name}}</option>
             {% endfor %}
         </select>
        

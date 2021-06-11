@@ -1,3 +1,4 @@
+import pdb 
 from db.run_sql import run_sql
 from models.manufacturer import Manufacturer 
 from models.stock import Stock
@@ -5,8 +6,8 @@ import repositories.manufacturer_repository as manufacturer_repository
 
 def save(stock):
     
-    sql = "INSERT INTO stock (name, description,manufacturer_id,cost,price, in_stock) VALUES(%s,%s,%s,%s,%s,%s)RETURN *"
-    values = [stock.name, stock.description, stock.manufacturer,stock.cost,stock.price, stock.in_stock]
+    sql = "INSERT INTO stock (name, description,manufacturer_id,cost,price, in_stock) VALUES (%s,%s,%s,%s,%s,%s) RETURNING *"
+    values = [stock.name, stock.description, stock.manufacturer.id,stock.cost,stock.price, stock.in_stock]
     results = run_sql(sql,values)
     id = results[0]['id']
     stock.id = id

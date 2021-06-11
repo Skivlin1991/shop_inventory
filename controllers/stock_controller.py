@@ -23,15 +23,14 @@ def new_stock():
 
 # CREATE
 # POST '/stocks'
-@stock_blueprint.route('/stock/new', methods = ['POST'])
+@stock_blueprint.route('/stock', methods = ['POST'])
 def create_stock():
     name = request.form['name']
     description = request.form['description']
-    manufacturer = request.form['manufacturer']
     cost = request.form['cost']
     price = request.form['price']
     manufacturer = manufacturer_repository.select(request.form['manufacturer_id'])
-    stock = stock(name, description,cost , price, id)
+    stock = Stock(name, description,manufacturer,cost , price)
     stock_repository.save(stock)
     return redirect('/stock')
 
