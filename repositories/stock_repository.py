@@ -1,6 +1,4 @@
-import pdb 
 from db.run_sql import run_sql
-from models.manufacturer import Manufacturer 
 from models.stock import Stock
 import repositories.manufacturer_repository as manufacturer_repository
 
@@ -9,21 +7,22 @@ def save(stock):
     sql = "INSERT INTO stock (name, description,manufacturer_id,cost,price, in_stock) VALUES (%s,%s,%s,%s,%s,%s) RETURNING *"
     values = [stock.name, stock.description, stock.manufacturer.id,stock.cost,stock.price, stock.in_stock]
     results = run_sql(sql,values)
+    print(results)
     id = results[0]['id']
     stock.id = id
     return stock 
 
 def select_all():
-    stock = []
+    stocks = []
     sql = "SELECT * FROM stock"
     results = run_sql(sql)
     
     for row in results:
         manufacturer= manufacturer_repository.select(row['manufacturer_id'])
-        new_stock = Stock(row['name'],row['description'],manufacturer, row['cost'], row['price'], 
+        stock = Stock(row['name'],row['description'],manufacturer, row['cost'], row['price'], 
                           row['in_stock'],row['id'])
-        stock.append(new_stock)
-    return stock
+        stocks.append(stock)
+    return stocks
    
 def select(id):
     stock = None

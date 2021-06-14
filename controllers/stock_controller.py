@@ -5,6 +5,7 @@ from models.stock import Stock
 from templates import *
 import repositories.stock_repository as stock_repository
 import repositories.manufacturer_repository as manufacturer_repository
+from models import *
 
 stock_blueprint = Blueprint("stock",__name__)
 
@@ -27,13 +28,12 @@ def new_stock():
 def create_stock():
     name = request.form['name']
     description = request.form['description']
-    cost = request.form['cost']
-    price = request.form['price']
     manufacturer = manufacturer_repository.select(request.form['manufacturer_id'])
+    cost = int (request.form['cost'])
+    price = int (request.form['price'])
     stock = Stock(name, description,manufacturer,cost , price)
     stock_repository.save(stock)
     return redirect('/stock')
-
 # SHOW
 # GET'/stock/<id>'
 @stock_blueprint.route('/stock/<id>', methods=['GET'])
@@ -43,12 +43,12 @@ def show_stock(id):
 
 # EDIT
 # GET '/stock/<id>/edit'
-@stock_blueprint.route('/stock/<id>.edit', methods=['GET'])
+@stock_blueprint.route('/stock/<id>/edit', methods=['GET'])
 def edit_stock(id):
     stock = stock_repository.select(id)
     manufacturer = manufacturer_repository.select_all()
     return render_template('edit.html',stock= stock, all_manufacturers= manufacturer)
-
+    
 # UPDATE
 # PUT '/stock/<id>'
 @stock_blueprint.route('/stock/<id>', methods= ["POST"])
@@ -58,7 +58,7 @@ def update_stock(id):
     price = int(request.form['price'])
     cost = int(request.form['cost'])
     in_stock = request.form['in_stock']
-    manufacturer = manufacturer_repository.select(request.form[manufacturer_id])
+    manufacturer = manufacturer_repository.select(request.form['manufacturer_id'])
     stock = Stock(name, description, manufacturer, cost, price,in_stock, id)
     stock_repository.update(stock)
     return redirect('/stock')

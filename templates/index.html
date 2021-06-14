@@ -8,6 +8,7 @@
     <p>{{stock.manufacturer.first_name}} {{stock.manufacturer.last_name}}</p>
     <p>in stock {{stock.in_stock}}</p>
     <p><a href="/stock/{{stock.id}}/edit">Edit</a></p>
+    <P>{{stock.price - stock.cost}}</p>
     <form action="/stock/{{stock.id}}/sell" method="POST">
         <button class="SOLD-button">sold</button>
     </form>
@@ -18,7 +19,11 @@
     <p>{{stock.name}}</p>
     <p>{{stock.manufacturer.first_name}} {{stock.manufacturer.last_name}}</p>
     <p>in stock {{stock.in_stock}}</p>
+    <P>{{stock.price - stock.cost}}</p>
     <p><a href="/stock/{{stock.id}}/edit">Edit</a></p>
+    <form action="/stock/{{stock.id}}/delete" method="POST">
+        <button class="delete-button">sold</button>
+    </form>
 </div>
 {% endif %}
 {% endfor %}
