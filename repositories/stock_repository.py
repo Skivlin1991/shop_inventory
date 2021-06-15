@@ -41,7 +41,7 @@ def delete_all():
     
 def delete(id):
     sql = "DELETE FROM stock WHERE id = %s"
-    values =['id']
+    values =[id]
     run_sql(sql,values)
     
 def update(stock):

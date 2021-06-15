@@ -1,3 +1,4 @@
+import pdb 
 from models.manufacturer import Manufacturer
 from flask import Flask,render_template,request,redirect 
 from flask import Blueprint
@@ -81,4 +82,5 @@ def sell_stock(id):
 @stock_blueprint.route("/stock/<id>/delete", methods=['POST'])
 def delete_stock(id):
     stock_repository.delete(id)
+    pdb.set_trace()
     return redirect('/stock')

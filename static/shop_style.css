@@ -1,0 +1,16 @@
+body{
+    margin: 10px;
+    background-image: url("images/shop_background.jpeg");
+    background-size : 100%;
+}
+
+h1,h2,h3 {
+    color:burlywood;
+}
+
+.in-stock > p {
+    color:burlywood;
+}
+.not-in-stock > p {
+    color:red;
+}
