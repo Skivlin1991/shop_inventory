@@ -3,7 +3,7 @@ from models.manufacturer import Manufacturer
 from models.stock import Stock
 
 def save(manufacturer):
-    sql = "INSERT INTO manufacturers(first_name, last_name) VALUES(%s,%s) RETURNING *"
+    sql = "INSERT INTO manufacturers (first_name, last_name) VALUES (%s, %s) RETURNING *"
     values = [manufacturer.first_name, manufacturer.last_name]
     results = run_sql(sql,values)
     id = results[0]['id']
@@ -28,7 +28,7 @@ def select(id):
     result = run_sql(sql,values)[0]
     
     if result is not None:
-        manufacturer = Manufacturer(result['first_name'],result['last_name'],result['id'])
+        manufacturer = Manufacturer(result['first_name'], result['last_name'], result['id'])
         return manufacturer
 
 def delete_all():
@@ -47,6 +47,6 @@ def update(manufacturer):
     values = [manufacturer.id]
     results = run_sql(sql,values)
     for row in results:
-        stock = Stock(row['name'],row['description'],row['manufacturer'],row['cost'],row['price'],row['id'])
+        stock = Stock(row['name'], row['description'], row['cost'], row['price'], row['manufacturer'] ,row['id'])
         stock.append(stock)
     return stock

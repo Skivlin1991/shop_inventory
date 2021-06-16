@@ -3,14 +3,12 @@ from models.stock import Stock
 import repositories.manufacturer_repository as manufacturer_repository
 
 def save(stock):
-    
-    sql = "INSERT INTO stock (name, description,manufacturer_id,cost,price, in_stock) VALUES (%s,%s,%s,%s,%s,%s) RETURNING *"
-    values = [stock.name, stock.description, stock.manufacturer.id,stock.cost,stock.price, stock.in_stock]
+
+    sql = "INSERT INTO stock (name, description, cost, price, in_stock, manufacturers_id) VALUES (%s, %s, %s, %s, %s, %s) RETURNING *"
+    values = [stock.name, stock.description,stock.cost, stock.price, stock.in_stock,stock.manufacturer.id]
     results = run_sql(sql,values)
-    print(results)
     id = results[0]['id']
     stock.id = id
-    return stock 
 
 def select_all():
     stocks = []
@@ -18,9 +16,9 @@ def select_all():
     results = run_sql(sql)
     
     for row in results:
-        manufacturer= manufacturer_repository.select(row['manufacturer_id'])
-        stock = Stock(row['name'],row['description'],manufacturer, row['cost'], row['price'], 
-                          row['in_stock'],row['id'])
+        manufacturer= manufacturer_repository.select(row['manufacturers_id'])
+        stock = Stock(row['name'], row['description'], manufacturer,row['cost'], row['price'], 
+                          row['in_stock'], row['id'])
         stocks.append(stock)
     return stocks
    
@@ -32,7 +30,7 @@ def select(id):
     
     if result is not None:
         manufacturer = manufacturer_repository.select(result['manufacturer_id'])
-        stock = Stock(result['name'],result['description'],manufacturer, result['cost'],result['price'],result['in_stock'],result['id'])
+        stock = Stock(result['name'], result['description'], result['cost'], result['price'], result['in_stock'], manufacturer, result['id'])
     return stock 
 
 def delete_all():
@@ -45,6 +43,6 @@ def delete(id):
     run_sql(sql,values)
     
 def update(stock):
-    sql = "UPDATE stock SET (name, description , manufacturer_id, cost, price, in_stock) = (%s,%s,%s,%s,%s,%s) WHERE id = %s"
-    values = [stock.name, stock.description, stock.manufacturer.id, stock.cost, stock.price, stock.in_stock,stock.id]
+    sql = "UPDATE stock SET (name, description , cost, price, manufacturer_id, in_stock) = (%s,%s,%s,%s,%s,%s) WHERE id = %s"
+    values = [stock.name, stock.description, stock.cost, stock.price, manufacturer_id , stock.in_stock, stock.id]
     run_sql(sql,values)
