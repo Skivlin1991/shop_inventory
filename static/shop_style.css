@@ -12,5 +12,5 @@ h1,h2,h3 {
     color:burlywood;
 }
 .not-in-stock > p {
-    color:red;
+    color:rgb(197, 23, 11);
 }

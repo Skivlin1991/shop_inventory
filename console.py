@@ -1,4 +1,3 @@
-import pdb
 from models.manufacturer import Manufacturer
 from models.stock import Stock
 
@@ -30,18 +29,13 @@ stock_repository.save(stock_5)
 stock_6 = Stock("Vorpal Sword", "Weapon(legendary)",manufacturer3, 20000,45000)
 stock_repository.save(stock_6)
 
-stock_7 = Stock("cast-off Armor", "armor(common)",manufacturer1, 400,650)
-stock_repository.save(stock_7)
-stock_8 = Stock("Hat of Wizardry", "Wondrous item(common)",manufacturer2, 500,700)
-stock_repository.save(stock_8)
-stock_9 = Stock("Pipe of Smoke Monsters", "Wondrous item(common)",manufacturer3, 54,65)
-stock_repository.save(stock_9)
-stock_10 = Stock("Clockwork Amulet", "wondrous item(common)",manufacturer1, 400,500)
-stock_repository.save(stock_10)
+# stock_7 = Stock("cast-off Armor", "armor(common)",manufacturer1, 400,650)
+# stock_repository.save(stock_7)
+# stock_8 = Stock("Hat of Wizardry", "Wondrous item(common)",manufacturer2, 500,700)
+# stock_repository.save(stock_8)
+# stock_9 = Stock("Pipe of Smoke Monsters", "Wondrous item(common)",manufacturer3, 54,65)
+# stock_repository.save(stock_9)
+# stock_10 = Stock("Clockwork Amulet", "wondrous item(common)",manufacturer1, 400,500)
+# stock_repository.save(stock_10)
 
 manufacturer_repository.select_all()
-
-
-pdb.set_trace()
-
-

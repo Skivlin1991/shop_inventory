@@ -1,5 +1,5 @@
-DROP TABLE IF EXISTS stock;
-DROP TABLE IF EXISTS manufacturers;
+DROP TABLE stock;
+DROP TABLE manufacturers;
 
 CREATE TABLE manufacturers(
     id SERIAL PRIMARY KEY,
@@ -14,5 +14,5 @@ CREATE TABLE stock(
     cost INT,
     peice INT,
     in_stock BOOLEAN,
-    manufacturers_id INT REFERENCES manufacturers(id) ON DELETE CASADE
+    manufacturers_id INT REFERENCES manufacturers(id) ON DELETE CASCADE
 );
