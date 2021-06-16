@@ -29,8 +29,8 @@ def select(id):
     result = run_sql(sql,values)[0]
     
     if result is not None:
-        manufacturer = manufacturer_repository.select(result['manufacturer_id'])
-        stock = Stock(result['name'], result['description'], result['cost'], result['price'], result['in_stock'], manufacturer, result['id'])
+        manufacturer = manufacturer_repository.select(result['manufacturers_id'])
+        stock = Stock(result['name'], result['description'], manufacturer , result['cost'], result['price'], result['in_stock'], result['id'])
     return stock 
 
 def delete_all():
@@ -43,6 +43,6 @@ def delete(id):
     run_sql(sql,values)
     
 def update(stock):
-    sql = "UPDATE stock SET (name, description , cost, price, manufacturer_id, in_stock) = (%s,%s,%s,%s,%s,%s) WHERE id = %s"
-    values = [stock.name, stock.description, stock.cost, stock.price, manufacturer_id , stock.in_stock, stock.id]
+    sql = "UPDATE stock SET (name, description , cost, price, manufacturers_id, in_stock) = (%s,%s,%s,%s,%s,%s) WHERE id = %s"
+    values = [stock.name, stock.description, stock.cost, stock.price, stock.manufacturer.id , stock.in_stock, stock.id]
     run_sql(sql,values)
